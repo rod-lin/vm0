@@ -14,20 +14,9 @@ typedef intptr_t		vm0_ptr_t;
 typedef uintptr_t		vm0_uptr_t;
 
 typedef vm0_uint8_t		vm0_byte_t;
+typedef vm0_uint8_t		vm0_bool_t;
 typedef vm0_uptr_t		vm0_size_t;
 
-typedef union vm0_value_t_tag {
-	vm0_int32_t i; // c0 int
-	vm0_ptr_t p; // any pointer type
-	struct vm0_array_t_tag *a; // array
-} vm0_value_t;
-
-typedef struct vm0_array_t_tag {
-	vm0_size_t size;
-	vm0_value_t lst[];
-} vm0_array_t;
-
-typedef struct {
-	vm0_value_t *bottom;
-	vm0_value_t *top;
-} vm0_stack_t;
+#define VM0_TYPE_INT32	0
+#define VM0_TYPE_PTR	1
+#define VM0_TYPE_ARRAY	2
