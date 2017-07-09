@@ -1,17 +1,24 @@
-#include "vm/type.h"
+#ifndef VM0_VM_VALUE_H
+#define VM0_VM_VALUE_H
+
+#include "std/type.h"
 
 typedef struct vm0_value_t_tag {
 	struct {
-		vm0_byte_t type;
-		vm0_byte_t pad[7];
+		std_byte_t type;
+		std_byte_t pad[7];
 	} h; // header: 64
 
 	union vm0_value_t_union {
-		vm0_int32_t i; // c0 int
-		vm0_ptr_t p; // any pointer type
+		std_int32_t i; // c0 int
+		std_ptr_t p; // any pointer type
 		struct vm0_array_t_tag *a; // array
 	} v; // max: 64
 } vm0_value_t;
+
+#define VM0_TYPE_INT32	0
+#define VM0_TYPE_PTR	1
+#define VM0_TYPE_ARRAY	2
 
 #define vm0_value_buildInt(val) ((vm0_value_t) {	\
 	{ VM0_TYPE_INT32 },								\
@@ -25,6 +32,8 @@ typedef struct vm0_value_t_tag {
 #define vm0_value_type(val) ((val).h.type)
 
 typedef struct vm0_array_t_tag {
-	vm0_size_t size;
+	std_size_t size;
 	vm0_value_t lst[];
 } vm0_array_t;
+
+#endif

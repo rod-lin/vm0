@@ -1,13 +1,18 @@
-#include "vm/alloc.h"
+#include "std/base.h"
+
 #include "vm/stack.h"
 
-vm0_stack_t
-vm0_stack_init(vm0_size_t init)
+void
+vm0_stack_init(vm0_stack_t *stack, std_size_t init)
+//@ pre stack != STD_NULL
 {
-	vm0_stack_t ret;
+	stack->top = stack->bottom = std_sralloc(sizeof(*stack->bottom) * init);
+	stack->edge = stack->bottom + init;
+	stack->size = init;
+}
 
-	ret.top = ret.bottom = vm0_ralloc(sizeof(*ret.bottom) * init);
-	ret.edge = ret.bottom + init;
-
-	return ret;
+void
+vm0_stack_clean(vm0_stack_t *stack)
+{
+	std_rfree(stack->bottom);
 }
