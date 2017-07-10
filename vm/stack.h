@@ -32,9 +32,12 @@ STD_INLINE
 void
 _vm0_stack_expand(vm0_stack_t *stack)
 {
-	std_size_t top = std_ptrdiff(stack->top, stack->bottom, sizeof(*stack->bottom));
+	std_size_t top = std_ptrdiff(stack->top, stack->bottom,
+								 sizeof(*stack->bottom));
+
 	stack->size <<= 1;
-	stack->bottom = std_srrealloc(stack->bottom, sizeof(*stack->bottom) * stack->size);
+	stack->bottom = std_srrealloc(stack->bottom,
+								  sizeof(*stack->bottom) * stack->size);
 	stack->top = stack->bottom + top;
 	stack->edge = stack->bottom + stack->size;
 }
