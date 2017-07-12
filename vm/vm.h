@@ -7,7 +7,7 @@
  */
 
 typedef struct {
-
+    
 } vm0_vm_t;
 
 #endif
